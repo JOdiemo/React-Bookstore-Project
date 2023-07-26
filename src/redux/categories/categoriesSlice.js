@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-const categoriesSlice = () => {
-  return (
-    <div>
-      Under Construction
-    </div>
-  )
-}
+const categoriesSlice = () => (
+  <div>
+    Under Construction;
+  </div>
+);
 
-export default categoriesSlice
+export default categoriesSlice;

@@ -1,13 +1,11 @@
 import React from 'react';
 import { removeBook } from './addremove';
 
-const BookItem = (id) => {
-  return (
-    <article className='book-item'>
-      <button className='remove-btn' onClick={(removeBook())}>Remove</button>
+const BookItem = () => (
+  <article className="book-item">
+    <button className="remove-btn" type="button" onClick={(removeBook())}>Remove</button>
 
-    </article>
-  )
-}
+  </article>
+);
 
 export default BookItem;
