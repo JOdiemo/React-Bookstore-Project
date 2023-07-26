@@ -39,7 +39,8 @@ react-redux app
   <ul>
     <li><a href=""></a>React Jsx</li>
      <li><a href=""></a>Redux Toolkit</li>
-    <li><a href=""></a>Css</li>
+    <li><a href=""></a>JavaScript</li>
+    <li><a href=""></a>CSS</li>
   </ul>
 </details>
 
