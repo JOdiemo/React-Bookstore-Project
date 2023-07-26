@@ -12,7 +12,7 @@ const App = () => (
   <Router>
     <Navbar />
     <Routes>
-      <Route path="/" element={<MainBooks />} />
+      <Route path="/" element={<MainBooks />} exact />
       <Route path="/Category" element={<MainCategory />} exact />
     </Routes>
   </Router>
