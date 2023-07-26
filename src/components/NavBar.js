@@ -14,7 +14,6 @@ const Navbar = () => {
       text: 'CATEGORIES',
     },
   ];
-
   return (
     <nav className="navbar">
       <h1 className="logo">
