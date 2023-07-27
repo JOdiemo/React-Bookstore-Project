@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, nanoid } from '@reduxjs/toolkit';
+import bookItems from '../../bookitems';
 
 const initialState = {
-  bookItems: [],
+  bookItems,
 };
 
 const bookSlice = createSlice({
@@ -9,17 +10,18 @@ const bookSlice = createSlice({
   initialState,
   reducers: {
     addBook: (state, action) => {
-      state.books = [
-        ...state.books,
+      state.bookItems = [
+        ...state.bookItems,
         {
-          id: Math.floor(Math.random() * 100),
+          id: nanoid(),
           title: action.payload.title,
           author: action.payload.author,
         },
       ];
     },
     removeBook: (state, action) => {
-      state.books = state.books.filter((book) => book.id !== action.id);
+      const bookId = action.payload;
+      state.bookItems = state.bookItems.filter((book) => book.id !== bookId);
     },
   },
 
