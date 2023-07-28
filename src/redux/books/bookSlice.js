@@ -1,31 +1,71 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
-import bookItems from '../../bookitems';
+import axios from 'axios';
 
-const initialState = {
-  bookItems,
+const ADD_BOOK = 'bookstore/books/addBook';
+const REMOVE_BOOK = 'bookstore/books/removeBook';
+const FETCH_BOOK = 'bookstore/books/FETCH_BOOK';
+const apiUrl = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/7uZY0qaS6HtQtuhk1SnE/books/';
+
+const initialState = [];
+
+const addRemoveReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_BOOK:
+      return [
+        ...state,
+        action.book,
+      ];
+    case REMOVE_BOOK:
+      return state.filter((book) => book.id !== action.id);
+    case FETCH_BOOK:
+      return action.book;
+    default:
+      return state;
+  }
 };
 
-const bookSlice = createSlice({
-  name: 'books',
-  initialState,
-  reducers: {
-    addBook: (state, action) => {
-      state.bookItems = [
-        ...state.bookItems,
-        {
-          id: nanoid(),
-          title: action.payload.title,
-          author: action.payload.author,
-        },
-      ];
-    },
-    removeBook: (state, action) => {
-      const bookId = action.payload;
-      state.bookItems = state.bookItems.filter((book) => book.id !== bookId);
-    },
-  },
-
+export const addBook = (book) => ({
+  type: ADD_BOOK,
+  book,
+});
+export const removeBook = (id) => ({
+  type: REMOVE_BOOK,
+  id,
 });
 
-export const { addBook, removeBook } = bookSlice.actions;
-export default bookSlice.reducer;
+const fetchBook = (book) => ({
+  type: FETCH_BOOK,
+  book,
+});
+
+export const fetchBookApi = () => async (dispatch) => {
+  const books = await axios.get(apiUrl);
+  const booksFetched = Object.entries(books.data).map((item) => {
+    const { title, author } = item[1][0];
+    return { id: item[0], title, author };
+  });
+  dispatch(fetchBook(booksFetched));
+};
+
+export const removeBookApi = (id) => async (dispatch) => {
+  await fetch(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/7uZY0qaS6HtQtuhk1SnE/books/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  dispatch(removeBook(id));
+};
+
+export const addBookApi = (book) => async (dispatch) => {
+  const { id, title, author } = book;
+  const newBook = {
+    item_id: id,
+    title,
+    author,
+    category: 'Fiction',
+  };
+  await axios.post(apiUrl, newBook);
+  dispatch(addBook(book));
+};
+
+export default addRemoveReducer;

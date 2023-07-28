@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,7 +15,6 @@ const App = () => (
       <Route path="/Category" element={<MainCategory />} exact />
     </Routes>
   </Router>
-
 );
 
 export default App;
