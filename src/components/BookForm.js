@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addBookApi } from '../redux/books/bookSlice';
 
-function AddBook() {
+function BookForm() {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -37,4 +37,4 @@ function AddBook() {
   );
 }
 
-export default AddBook;
+export default BookForm;

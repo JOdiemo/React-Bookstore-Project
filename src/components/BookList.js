@@ -1,30 +1,54 @@
-import React from 'react';
-import Book from './Book';
+// import { useSelector, useDispatch } from 'react-redux';
+// import React from 'react';
+// import { deleteBook } from '../redux/books/bookSlice';
 
-const BookList = () => {
-  const store = [
-    {
-      category: 'Technology',
-      title: 'Book Test 1',
-      author: 'Author Test1',
-      item_id: '1',
-    },
-    {
-      category: 'Scifi',
-      title: 'Book Test 2',
-      Author: 'Author Test 2',
-      item_id: '2',
-    },
-  ];
-  return (
-    <ul className="booklist__container">
-      {store.map((book) => (
-        <li key={book.item_id}>
-          <Book title={book.title} category={book.category} author={book.author} />
-        </li>
-      ))}
-    </ul>
-  );
-};
+// function BookList() {
+//   const { books, isLoading, errorMsg } = useSelector((store) => store.book);
+//   const dispatch = useDispatch();
+//   if (isLoading) {
+//     return (
+//       <div style={{ marginTop: '50px' }}>Loading...</div>
+//     );
+//   }
 
-export default BookList;
+//   if (errorMsg) {
+//     return (
+//       <div style={{ marginTop: '50px' }}>Failed to fetch</div>
+//     );
+//   }
+
+//   return (
+//     <ul>
+//       {Object.entries(books).map(([id, book]) => book.map((bookItem) => (
+//         <li key={id}>
+//           <div>
+//             <p>{bookItem.category}</p>
+//             <h2>{bookItem.title}</h2>
+//             <p>{bookItem.author}</p>
+//             <div>
+//               <button type="button">edit</button>
+//               <button
+//                 type="button"
+//                 onClick={() => {
+//                   dispatch(deleteBook(id));
+//                 }}
+//               >
+//                 delete
+//               </button>
+//               <button type="button">comment</button>
+//             </div>
+//           </div>
+//           <div>
+//             <div />
+//           </div>
+//         </li>
+//       )))}
+//     </ul>
+//   );
+// }
+
+// // BookList.propTypes = {
+// //   books: PropTypes.arrayOf().isRequired,
+// // };
+
+// export default BookList;

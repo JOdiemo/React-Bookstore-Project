@@ -1,16 +1,28 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
-import { useSelector } from 'react-redux';
-import BookItem from './BookItem';
+/* eslint-disable max-len */
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import BookForm from './BookForm';
+import Book from './Book';
+import { fetchBookApi } from '../redux/books/bookSlice';
 
 const BookContainer = () => {
-  const { bookItems } = useSelector((store) => store.books);
+  const books = useSelector((state) => state.books);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBookApi());
+  }, [dispatch]);
+
   return (
-    <section className="book-container">
-      <div>
-        {bookItems.map((book) => <BookItem key={book.id} {...book} />)}
+    <>
+      <div className="allbooks">
+        {books.map(
+          (book) => <Book key={book.id} id={book.id} title={book.title} author={book.author} />,
+        )}
       </div>
-    </section>
+
+      <BookForm />
+    </>
   );
 };
 
