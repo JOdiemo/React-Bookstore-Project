@@ -19,17 +19,19 @@ const Navbar = () => {
       <h1 className="logo">
         Bookstore CMS
       </h1>
-      <ul>
+      <ul className="nav-link">
         {links.map((link) => (
           <li key={link.id}>
-            <NavLink
-              to={link.path}
-              className="link"
-              activeClassName="active-link"
-              exact
-            >
-              {link.text}
-            </NavLink>
+            <a href="*">
+              <NavLink
+                to={link.path}
+                className="link"
+                activeClassName="active-link"
+                exact
+              >
+                {link.text}
+              </NavLink>
+            </a>
           </li>
         ))}
       </ul>
