@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MainCategory = () => (
-  <div>
+  <div className="main-category">
     Under construction
   </div>
 );

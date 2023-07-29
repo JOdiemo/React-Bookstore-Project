@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const ADD_BOOK = 'bookstore/books/addBook';
-const REMOVE_BOOK = 'bookstore/books/removeBook';
-const FETCH_BOOK = 'bookstore/books/FETCH_BOOK';
-const apiUrl = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/7uZY0qaS6HtQtuhk1SnE/books/';
+const ADD_BOOK = 'books/addBook';
+const REMOVE_BOOK = 'books/removeBook';
+const FETCH_BOOK = 'books/FETCH_BOOK';
+const url = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/7uZY0qaS6HtQtuhk1SnE/books/';
 
 const initialState = [];
 
@@ -38,10 +38,12 @@ const fetchBook = (book) => ({
 });
 
 export const fetchBookApi = () => async (dispatch) => {
-  const books = await axios.get(apiUrl);
+  const books = await axios.get(url);
   const booksFetched = Object.entries(books.data).map((item) => {
-    const { title, author } = item[1][0];
-    return { id: item[0], title, author };
+    const { title, author, category } = item[1][0];
+    return {
+      id: item[0], title, author, category,
+    };
   });
   dispatch(fetchBook(booksFetched));
 };
@@ -57,14 +59,17 @@ export const removeBookApi = (id) => async (dispatch) => {
 };
 
 export const addBookApi = (book) => async (dispatch) => {
-  const { id, title, author } = book;
+  const {
+    id, title, author, category,
+  } = book;
+
   const newBook = {
     item_id: id,
     title,
     author,
-    category: 'Fiction',
+    category,
   };
-  await axios.post(apiUrl, newBook);
+  await axios.post(url, newBook);
   dispatch(addBook(book));
 };
 

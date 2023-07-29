@@ -1,40 +1,29 @@
-import { React, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import { addBookApi } from '../redux/books/bookSlice';
+/* eslint-disable max-len */
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import AddBook from './AddBook';
+import Book from './Book';
+import { fetchBookApi } from '../redux/books/bookSlice';
 
-function BookForm() {
+const Books = () => {
+  const books = useSelector((state) => state.books);
   const dispatch = useDispatch();
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
 
-  function newTitle(e) {
-    setTitle(e.target.value);
-  }
-
-  function newAuthor(e) {
-    setAuthor(e.target.value);
-  }
-
-  const addData = (e) => {
-    e.preventDefault();
-    if (title !== '' && author !== '') {
-      const id = uuidv4();
-      dispatch(addBookApi({ id, title, author }));
-      e.target.reset();
-    }
-  };
+  useEffect(() => {
+    dispatch(fetchBookApi());
+  }, [dispatch]);
 
   return (
     <>
-      <h3>Add New Book</h3>
-      <form className="add" onSubmit={addData}>
-        <input type="text" placeholder="Enter Book title Here" onChange={newTitle} required />
-        <input type="text" placeholder="Enter author Here" onChange={newAuthor} required />
-        <button type="submit">Add Book</button>
-      </form>
+      <div className="allbooks">
+        {books.map(
+          (book) => <Book key={book.id} id={book.id} title={book.title} author={book.author} category={book.category} />,
+        )}
+      </div>
+      <hr />
+      <AddBook />
     </>
   );
-}
+};
 
-export default BookForm;
+export default Books;
